@@ -35,6 +35,7 @@ app.use(async (ctx, next) => {
   global._navigatorLang = parseNavLang(ctx);
 
   const ext = extname(ctx.request.path);
+  console.log('ext---', ext)
   // 符合要求的路由才进行服务端渲染，否则走静态文件逻辑
   if (!ext) {
     if (!render) {
@@ -61,7 +62,7 @@ app.use(async (ctx, next) => {
  *  这里最好是用nginx配置静态目录，如果是用cdn方式部署，这里可以忽略
  *
  */
-app.use(mount('/dist', require('koa-static')(root)));
+app.use(mount('/', require('koa-static')(root)));
 
 app.listen(7001);
 console.log('http://localhost:7001');
